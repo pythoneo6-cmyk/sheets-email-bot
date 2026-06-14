@@ -1,0 +1,24 @@
+
+SUBJECT: Welcome from our team
+
+
+BODY:
+Hi {name},
+
+
+Thank you for joining us.
+**We are happy** to have you on board.
+
+
+Here is what you can expect from us:
+1. Quality service
+2. **Fast response**
+3. 24/7 support
+
+
+~~This offer is valid for limited time only~~
+
+
+*Regards,*
+
+~~Your Company Name~~
