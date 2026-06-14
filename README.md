@@ -5,6 +5,9 @@ A Python script and Streamlit web app that reads contacts from a CSV file and se
 ## Demo
 Watch 90 second demo — coming soon
 
+## Actual Streamlit URL:
+Live app: https://pythoneo6-cmyk-sheets-email-bot.streamlit.app
+
 ## What it does
 - Reads names and emails from a CSV file
 - Sends personalised HTML styled emails to each contact
