@@ -19,6 +19,23 @@ st.title("✉️ Gmail Automation Bot")
 st.markdown("Upload your contacts, write your email, preview and send.")
 st.divider()
 
+# ── Step 0: Gmail credentials ────────────────────────────────────────
+st.subheader("Step 0 — Enter your Gmail credentials")
+st.markdown("Your credentials are never saved — entered fresh each session.")
+
+sender_email    = st.text_input("Your Gmail address", 
+                                placeholder="yourname@gmail.com")
+sender_password = st.text_input("Your Gmail App Password", 
+                                type="password",
+                                placeholder="xxxx xxxx xxxx xxxx")
+
+if not sender_email or not sender_password:
+    st.warning("Please enter your Gmail credentials to continue")
+    st.stop()
+
+st.success("Credentials entered — ready to continue")
+st.divider()
+
 # ── Step 1: Upload CSV ───────────────────────────────────────────────
 st.subheader("Step 1 — Upload your contacts CSV")
 st.markdown("Your CSV must have these columns: `name`, `email`")
@@ -134,7 +151,7 @@ if st.button("🚀 Send Emails", use_container_width=True, type="primary"):
         # Connect to Gmail
         try:
             smtp_connection = smtplib.SMTP_SSL("smtp.gmail.com", 465)
-            smtp_connection.login(config.SENDER_EMAIL, config.SENDER_PASSWORD)
+            smtp_connection.login(sender_email, sender_password)
             st.success("Logged in to Gmail successfully")
         except Exception as e:
             st.error(f"Gmail login failed --- {e}")
@@ -159,16 +176,14 @@ if st.button("🚀 Send Emails", use_container_width=True, type="primary"):
 
                 # Build MIME message
                 msg = MIMEMultipart("alternative")
-                msg["From"]    = config.SENDER_EMAIL
+                msg["From"]    = sender_email
                 msg["To"]      = email
                 msg["Subject"] = subject
                 msg.attach(MIMEText(plain_text, "plain"))
                 msg.attach(MIMEText(html_email, "html"))
 
                 # Send
-                smtp_connection.sendmail(
-                    config.SENDER_EMAIL, email, msg.as_string()
-                )
+                smtp_connection.sendmail(sender_email, email, msg.as_string())
 
                 sent_count += 1
                 status_box.success(f"Sent to {name} ({email})")
